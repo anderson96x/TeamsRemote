@@ -16,32 +16,33 @@ from PIL import ImageTk, Image
 from tkinter import Canvas, NW
 
  
-#PyInstaller temp path
-def resource_path(relative_path):
+
+def resource_path(relative_path): #PyInstaller temp path
     """ Get absolute path to resource, works for dev and for PyInstaller """
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
 
-#toggle button
-def buttonController():
+def buttonController(): #toggle button
     global window_ID
 
     #toggle
     if enableBTN["text"] == "Ativar":
         enableBTN["text"] = "Desativar"
         enableBTN["background"] = "#C4314B"
-        #window_ID = window.after(1000, windowHandler) #schedule a function to run
+        infoCanvas.pack_forget() #hide canva
+        window_ID = window.after(1000, windowHandler) #schedule a function to run
 
-        #send_hotkeys()
+        send_hotkeys()
         
     else:
-        #window.after_cancel(window_ID) #since its a scheduled call, it can be cancelled
-        #window_ID = None #empty the ID so scheduler can no longer run
+        window.after_cancel(window_ID) #since its a scheduled call, it can be cancelled
+        window_ID = None #empty the ID so scheduler can no longer run
         enableBTN["text"] = "Ativar"
         enableBTN["background"] = "#5B5FC7"
+        infoCanvas.pack_forget() #hide canva
 
-        #keyboard.unhook_all() #undo all hotkeys association
+        keyboard.unhook_all() #undo all hotkeys association
 
 
 def windowHandler(): #recursive function to keep the Teams window maximized and active to prevend hotkeys being sent to another application
@@ -57,7 +58,7 @@ def windowHandler(): #recursive function to keep the Teams window maximized and 
     window_ID = window.after(5000, windowHandler) #5 seconds span
 
 
-def send_hotkeys():
+def send_hotkeys(): #remap, lock and send hotkeys
     
     #when key is pressed, it calls a function to release the key and send the hotkey. Supress is set to true, so it sends olny the hotkey
 
@@ -73,30 +74,57 @@ def send_hotkeys():
     keyboard.on_press_key('PageDown', callback_PageDown, suppress=True) #mic
 
 
+def showInfo(): #display the creator info
+    if infoBTN["text"] == "e":
+        infoCanvas.pack() #show canva
+        infoBTN["text"] = "d"
+    else: 
+        infoBTN["text"] == "d"
+        infoCanvas.pack_forget() #hide canva
+        infoBTN["text"] = "e"
 
 
 
 
 
 #Desgin
-
 window = tk.Tk()
 window.resizable(False, False)
 window.title("Teams Remote")
 window.iconbitmap(resource_path('./Assets/TeamsRemote_icon.ico'))
 
 
-photoimage = ImageTk.PhotoImage(file=resource_path("./Assets/remote.png"))
-width, height = photoimage.width(), photoimage.height() #set the width and height according to the original file
-canvas = Canvas(window, bg="white", width=width, height=height, highlightthickness=0)
+#remote picture
+remotePIC = ImageTk.PhotoImage(file=resource_path("./Assets/remote.png"))
+width, height = remotePIC.width(), remotePIC.height() #set the width and height according to the original file
+canvas = Canvas(window, 
+                bg="white", 
+                width=width, 
+                height=height, 
+                highlightthickness=0)
 canvas.pack()
-canvas.create_image(0, 0, image=photoimage, anchor=NW)
+canvas.create_image(0, 0, image=remotePIC, anchor=NW)
 
+
+#info button to display credits
+infoBTN_PIC = ImageTk.PhotoImage(file=resource_path("./Assets/infoPIC.png"))
+infoBTN = tk.Button(window,
+                    text="e",
+                    width=10,
+                    height=10,
+                    image=infoBTN_PIC,
+                    relief="solid",
+                    borderwidth=0,
+                    command=showInfo)
+infoBTN.place(x=248, y=0)
+
+
+#enable/ disable button
 enableBTN = tk.Button(window,
                       width="10",
                       text="Ativar",
                       pady="30",
-                      padx="80",
+                      padx="82",
                       background="#5B5FC7",
                       foreground="white",
                       relief="solid",
@@ -106,6 +134,23 @@ enableBTN = tk.Button(window,
 enableBTN.pack()
 
 
+#info canva
+infoCanvas = Canvas(window, 
+                    bg="#424242", 
+                    width=268, 
+                    height=60, 
+                    highlightthickness=0)
+githubPIC = ImageTk.PhotoImage(file=resource_path("./Assets/github_logo2.png"))
+infoCanvas.create_text(131,15, 
+                       fill="white", 
+                       text="Coded with love by Anderson Lobo")
+infoCanvas.create_image(75, 25, 
+                        image=githubPIC, 
+                        anchor=NW)
+infoCanvas.create_text(141,37, 
+                       fill="white", 
+                       text="/anderson96x")
+infoCanvas.pack_forget()
 
 
 window.mainloop()
