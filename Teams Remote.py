@@ -1,5 +1,3 @@
-#Remap keys so you can use a simple presentation clicker to control the 'mute' and 'disable webcam' buttons on Teams application
-#
 #PageUP = CTRL + Shift + O (webcam)
 #PAgeDown = CTRL + Shift + M (mic)
 #According to the button order in Teams application
@@ -85,10 +83,10 @@ def send_hotkeys():
 window = tk.Tk()
 window.resizable(False, False)
 window.title("Teams Remote")
-window.iconbitmap(resource_path('TeamsRemote_icon.ico'))
+window.iconbitmap(resource_path('./Assets/TeamsRemote_icon.ico'))
 
 
-photoimage = ImageTk.PhotoImage(file=resource_path("remote.png"))
+photoimage = ImageTk.PhotoImage(file=resource_path("./Assets/remote.png"))
 width, height = photoimage.width(), photoimage.height() #set the width and height according to the original file
 canvas = Canvas(window, bg="white", width=width, height=height, highlightthickness=0)
 canvas.pack()
