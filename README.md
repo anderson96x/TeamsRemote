@@ -20,9 +20,10 @@ I ran a keyboard test to see which keys were associated with the physical button
 ## What it does
 - Remaps PageUp to 'CTRL + Shift + O' -> Camera control on Teams.
 - Remaps PageDown to 'CTRL + Shift + M' -> Mic control on Teams.
+- Remaps 'B' to 'CTRL + Shift + K' -> Raise / Lower hand (v1.2.0)
 - Checks every 5 seconds to ensure the focus is on the Teams window (to avoid sending the hotkey to another application).
-<br>
-<img src="https://github.com/anderson96x/TeamsRemote/assets/50344854/62e9c8c3-0be3-4d25-8cda-0411c4c174b1" alt="Presentation clicker showing that right button is mic control and left button is camera control" width="250px">
+
+<img src="https://github.com/anderson96x/TeamsRemote/assets/50344854/5eb4ff64-c9d2-43da-b292-d7f574939630" alt="Presentation clicker showing that right button is mic control and left button is camera control" width="250px">
 <br>
 <img src="https://github.com/anderson96x/TeamsRemote/assets/50344854/7e81ac31-37b3-43e1-acba-a97c829a5478" alt="Teams Control" width="250px">
 
