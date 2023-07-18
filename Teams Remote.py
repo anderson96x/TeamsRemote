@@ -1,9 +1,10 @@
 #PageUP = CTRL + Shift + O (webcam)
-#PAgeDown = CTRL + Shift + M (mic)
-#According to the button order in Teams application
+#PageDown = CTRL + Shift + M (mic)
+#'B' = CTRL + Shift + K (raise / lower hand)
 #
 #Left button = PagUP ------> Cam
 #Right button = PagDown -------> Mic
+#Up button = Raise / Lower hand
 #Estimated operation distance: 10m
 
 
@@ -68,10 +69,15 @@ def send_hotkeys(): #remap, lock and send hotkeys
 
     def callback_PageDown(event):
         keyboard.release('PageDown')
-        keyboard.send('ctrl+shift+m') #camera
+        keyboard.send('ctrl+shift+m') #mic
+    
+    def callback_b(event):
+        keyboard.release('b')
+        keyboard.send('ctrl+shift+k') #hand
     
     keyboard.on_press_key('PageUp', callback_PageUP, suppress=True) #camera
     keyboard.on_press_key('PageDown', callback_PageDown, suppress=True) #mic
+    keyboard.on_press_key('b', callback_b, suppress=True) #hand
 
 
 def showInfo(): #display the creator info
@@ -95,7 +101,7 @@ window.iconbitmap(resource_path('./Assets/TeamsRemote_icon.ico'))
 
 
 #remote picture
-remotePIC = ImageTk.PhotoImage(file=resource_path("./Assets/remote.png"))
+remotePIC = ImageTk.PhotoImage(file=resource_path("./Assets/remote_new.png"))
 width, height = remotePIC.width(), remotePIC.height() #set the width and height according to the original file
 canvas = Canvas(window, 
                 bg="white", 
